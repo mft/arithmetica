@@ -1,0 +1,64 @@
+素数判定関数 apr.awk for Arithmetica
+====================================
+Hadamard Edition
+
+概要
+----
+Arithmetica のための素数判定関数である。
+アルゴリズムにはアドルマン・ポメランス・ルメリー法を用いている。
+
+使い方
+------
+通常は、alib.awk で noapr.awk ではなく apr.awk が include されているこ
+とを確認して、
+
+> igawk -f af.awk [datafiles]
+
+として、isprime() を呼び出すと、（大きな数ならば）自動的に呼び出される。
+@include に対応していない環境では、その行をコメントにして、
+
+> awk -f af.awk -f alib.awk -f apr.awk [-f scripts] [datafiles]
+
+とする。
+datafile が与えられた場合、その datafile に書かれた計算を実行する。与
+えられなければ対話的に計算を行うことができる。datafile の書き方につい
+ては Arithmetica の説明書（arith.txt）を参照せよ。isprime 関数を呼び出
+さない限りこの apr.awk は必要ない。
+
+補助的に使用されるファイル
+--------------------------
+et.tbl は e(t)=2*((q-1) が t を割る素数 q の (q が t を割る回数足す 1)
+乗)の積 という関数のいくつかの ｔ についての値の表である。t としては小
+さい素数の積を選ぶとよい。これは、１ の p^m 乗根を整数に付け足した環の
+加群としてのランクが n=(p-1)*p^(m-1) で与えられ、計算時間が n^2 に比例
+して増大するからである。
+
+et.awk で et.tbl が生成される。おそらく誤って et.tbl を削除した時にし
+か使わないが、起動方法を書いておくと
+
+> gawk -f alib.awk -f apr.awk -f et.awk
+
+である。
+
+jacobi.dat・jacobi2.dat・jacobi3.dat は計算したヤコビ和を保存している。
+
+参考文献
+--------
+* Adleman,L.M.,Pomerance,C.,Rumely,R.S. "On distinguishing prime numbers 
+from composite numbers" Annals of Mathematics,117(1983) pp.173-206
+* Cohen,H. "A Course in Computational Algebraic Number Theory" Chapter9. 
+Springer-Verlag Graduate Texts in Mathematics 138, 1993, 
+ISBN0-387-55640-0/3-540-55640-0
+
+著作権・無保証
+--------------
+著作権は全面的に作者 松井鉄史(Fe2+:VED03370@nifty.ne.jp)が保持する。
+転載、再配布は、その場所を作者にメールその他の手段で連絡することを条件
+に、認める。改変を加えた場合は、その改変箇所を明示することが合わせて必
+要である。
+
+このスクリプトの実行結果に関しては、いかなる責任も作者は負わない。
+
+質問等はメールか、または nifty:FGALTS/mes/6 にて受け付ける。
+
+$$
